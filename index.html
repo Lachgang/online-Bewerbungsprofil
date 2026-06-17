@@ -13,7 +13,14 @@
     <header class="site-header">
         <div class="header-container">
             <div class="brand-capsule">Damian Wyss</div>
-            <nav class="main-navigation">
+            
+            <button class="hamburger" id="hamburger-btn" aria-label="Menü öffnen">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav class="main-navigation" id="main-nav">
                 <ul class="nav-list">
                     <li class="nav-item active" onclick="switchTab('home')">Startseite</li>
                     <li class="nav-item" onclick="switchTab('about')">Lebenslauf</li>
@@ -187,7 +194,7 @@
                         </a>
                         <a href="https://github.com/Lachgang/To-do-Liste" target="_blank" class="project-link-row">
                             <span>➔ To-do Liste</span>
-                            <span class="arrow-icon">🡪</span>
+                            <span class="arrow-icon">𡡪</span>
                         </a>
                     </div>
                 </article>
@@ -262,23 +269,53 @@
 
     <footer class="site-footer">
         <p>&copy; 2026 IDAF IV Online-Bewerbungsprofil. Konzipiert für die Informatikmittelschule.</p>
-        <p style="margin-top: 0.6rem; font-size: 0.85rem;"><a href="https://github.com/DEIN-GITHUB-USERNAME" target="_blank" class="text-link">Mein vollständiges GitHub-Profil</a></p>
+        <p style="margin-top: 0.6rem; font-size: 0.85rem;"><a href="https://github.com/Lachgang" target="_blank" class="text-link">Mein vollständiges GitHub-Profil</a></p>
     </footer>
 
     <script>
-        /* SPA Tab Navigation */
+        /* SPA Tab Navigation - Optimiert für Desktop und Mobile */
         function switchTab(tabId) {
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             
             document.getElementById(tabId).classList.add('active');
             
-            if(event && event.currentTarget && event.currentTarget.classList.contains('nav-item')) {
-                event.currentTarget.classList.add('active');
+            // Aktiviert das korrekte Navigationselement
+            const targetNavItem = Array.from(document.querySelectorAll('.nav-item')).find(item => item.getAttribute('onclick').includes(tabId));
+            if (targetNavItem) {
+                targetNavItem.classList.add('active');
+            }
+            
+            // Schliesst das mobile Menü nach der Auswahl automatisch
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mainNav = document.getElementById('main-nav');
+            if (hamburgerBtn && mainNav) {
+                hamburgerBtn.classList.remove('active');
+                mainNav.classList.remove('open');
             }
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        /* Hamburger Menü Click Logik */
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mainNav = document.getElementById('main-nav');
+
+            hamburgerBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                hamburgerBtn.classList.toggle('active');
+                mainNav.classList.toggle('open');
+            });
+
+            // Schliesst das Menü, wenn man irgendwo ausserhalb tippt
+            document.addEventListener('click', (e) => {
+                if (!mainNav.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+                    hamburgerBtn.classList.remove('active');
+                    mainNav.classList.remove('open');
+                }
+            });
+        });
 
         /* Ambient Relaxing Bokeh Background Canvas Animation */
         const canvas = document.getElementById('ambient-canvas');
@@ -298,7 +335,7 @@
                 this.y = Math.random() * canvas.height;
                 this.baseRadius = Math.random() * 45 + 20;
                 this.radius = this.baseRadius;
-                this.speedX = (Math.random() - 0.5) * 0.25; // Sehr langsame, beruhigende Bewegung
+                this.speedX = (Math.random() - 0.5) * 0.25;
                 this.speedY = (Math.random() - 0.5) * 0.25;
                 this.baseOpacity = Math.random() * 0.12 + 0.04;
                 this.opacity = this.baseOpacity;
@@ -310,7 +347,6 @@
                 this.y += this.speedY;
                 this.pulsePhase += this.pulseSpeed;
                 
-                // Sanftes Atmen/Pulsieren der Orbs
                 this.opacity = this.baseOpacity + Math.sin(this.pulsePhase) * 0.03;
                 this.radius = this.baseRadius + Math.cos(this.pulsePhase) * 6;
 
@@ -342,7 +378,7 @@
         animate();
 
         /* KRYPTOGRAPHISCHE INJEKTION */
-        const TARGET_HASH = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"; // Hash für "1234"
+        const TARGET_HASH = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"; // Passwort "1234"
         
         const OB_PATHS = {
             doc1: "ZG9jdW1lbnRzL0Jld2VyYnVuZ3NzY2hyZWliZW4ucGRm",

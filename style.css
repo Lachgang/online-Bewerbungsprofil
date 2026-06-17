@@ -1,6 +1,6 @@
 :root {
-    --bg-base: #e2eae4;
-    --bg-surface: rgba(255, 255, 255, 0.82);
+    --bg-base: #e2eae4; /* Angenehmer, etwas dunklerer und satterer Salbei-Grünton */
+    --bg-surface: rgba(255, 255, 255, 0.82); /* Leicht angepasst für perfekten Kontrast zum neuen Hintergrund */
     --bg-surface-elevated: #ffffff;
     --border-subtle: rgba(16, 185, 129, 0.14);
     --border-interactive: #10b981;
@@ -28,7 +28,7 @@ body {
     overflow-x: hidden;
 }
 
-/* OPTIMIERTES BACKGROUND-CANVAS */
+/* OPTIMIERTES BACKGROUND-CANVAS FÜR MEHR DYNAMIK & TIEFE */
 #ambient-canvas {
     position: fixed;
     top: 0;
@@ -41,7 +41,7 @@ body {
     background: linear-gradient(135deg, rgba(2, 44, 34, 0.09) 0%, rgba(16, 185, 129, 0) 50%, rgba(14, 116, 144, 0.08) 100%);
 }
 
-/* NAVIGATION ARCHITECTURE */
+/* NAVIGATION ARCHITECTURE: Schwebende Glas-Kapsel */
 .site-header {
     position: fixed;
     top: 1.5rem;
@@ -113,6 +113,30 @@ body {
     color: #ffffff;
     background-color: var(--accent);
     box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+}
+
+/* Hamburger Button Styling (Standardmäßig unsichtbar) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 1.8rem;
+    height: 1.35rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.hamburger-line {
+    width: 1.8rem;
+    height: 0.2rem;
+    background: var(--accent);
+    border-radius: 10px;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    position: relative;
+    transform-origin: 1px;
 }
 
 /* Layout Elements */
@@ -484,107 +508,105 @@ h2.card-title {
 
 
 /* =========================================================================
-   RESPONSIVE DESIGN (MOBILE & TABLET)
+   MEDIA QUERIES (RESPONSIVE DESIGN)
    ========================================================================= */
 
-/* Tablet & kleinere Laptops */
+/* Tablets und kleinere Monitore */
 @media (max-width: 850px) {
-    .bento-grid { 
-        grid-template-columns: 1fr; 
-    }
-    .bento-span-v2, .bento-span-h2 { 
-        grid-row: span 1; 
-        grid-column: span 1; 
-    }
+    .bento-grid { grid-template-columns: 1fr; }
+    .bento-span-v2, .bento-span-h2 { grid-row: span 1; grid-column: span 1; }
 }
 
-/* Grosse Smartphones & kleine Tablets */
+/* Smartphones (Hier greift die Hamburger-Navigation) */
 @media (max-width: 768px) {
-    /* Header & Navigation: Umbau für Mobile */
     .site-header {
         width: 90vw;
         border-radius: 20px;
+        top: 1rem;
     }
+
     .header-container {
-        flex-direction: column;
-        gap: 0.6rem;
-        padding: 1rem;
+        padding: 0.6rem 1.2rem;
+        justify-content: space-between;
+        width: 100%;
+        gap: 0;
     }
-    .brand-capsule {
-        padding-right: 0;
-    }
+
     .brand-capsule::after {
-        display: none; /* Trennstrich entfernen */
-    }
-    
-    /* Scrollbare Menüleiste für Mobile */
-    .nav-list {
-        max-width: 100%;
-        overflow-x: auto;
-        padding-bottom: 0.5rem;
-        justify-content: flex-start;
-        /* Scrollbar unsichtbar machen, aber Funktion behalten */
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-    .nav-list::-webkit-scrollbar {
         display: none;
     }
 
-    /* Layout Abstände */
-    .content-container { 
-        margin-top: 9.5rem; /* Mehr Platz oben wegen dem neuen Header */
-        padding: 0 1.2rem; 
+    /* Zeige den Hamburger-Button auf Mobilgeräten */
+    .hamburger {
+        display: flex;
+    }
+
+    /* Verwandle die Navigation in ein Dropdown-Menü */
+    .main-navigation {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 0 0 20px 20px;
+        border: 1px solid rgba(16, 185, 129, 0.16);
+        border-top: none;
+        box-shadow: 0 16px 32px -10px rgba(16, 185, 129, 0.15);
+        
+        /* Unsichtbarer Standardzustand */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* Wird via JS getoggled, wenn geöffnet */
+    .main-navigation.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0;
+        gap: 0.5rem;
+    }
+
+    .nav-item {
+        width: 90%;
+        text-align: center;
+        padding: 0.7rem;
+    }
+
+    /* Hamburger-Transformationen zu einem "X" */
+    .hamburger.active .hamburger-line:nth-child(1) { transform: rotate(45deg); }
+    .hamburger.active .hamburger-line:nth-child(2) { opacity: 0; transform: translateX(20px); }
+    .hamburger.active .hamburger-line:nth-child(3) { transform: rotate(-45deg); }
+
+    /* Layout-Anpassungen für Mobile */
+    .content-container {
+        margin-top: 6rem;
+        padding: 0 1.2rem;
     }
     
-    /* Intro Bereich */
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1.8rem;
+    }
+
     .intro-grid { 
         grid-template-columns: 1fr; 
         gap: 2rem; 
         justify-items: center; 
         text-align: center; 
     }
-    .avatar-frame { 
-        width: 190px; 
-        height: 215px; 
-    }
-    h1 { 
-        font-size: 1.9rem; 
-        margin-bottom: 1.5rem; 
-    }
     
-    /* Karten anpassen */
-    .content-card, .project-card { 
-        padding: 1.5rem; 
-    }
-}
-
-/* Kleine Smartphones */
-@media (max-width: 480px) {
-    /* Lebenslauf-Zeilen untereinander brechen */
-    .cv-row { 
-        flex-direction: column; 
-        gap: 0.3rem; 
-    }
-    .cv-meta { 
-        width: 100%; 
-        padding-bottom: 0.2rem; 
-    }
-    
-    /* Dokumenten-Download-Zeilen anpassen */
-    .document-row { 
-        flex-direction: column; 
-        align-items: stretch; 
-        gap: 1rem; 
-        text-align: center;
-    }
-    .document-row .secondary-button { 
-        text-align: center; 
-    }
-    
-    /* Lockscreen / Passwort-Bereich */
-    .secure-gate-card { 
-        padding: 1.5rem; 
-        margin: 2rem auto;
+    .avatar-frame {
+        width: 190px;
+        height: 215px;
     }
 }

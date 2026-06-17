@@ -495,7 +495,7 @@ body {
 }
 
 /* =========================================
-   RESPONSIVE DESIGN (OPTIMIERT FÜR MOBIL)
+   RESPONSIVE DESIGN
    ========================================= */
 @media (max-width: 960px) {
     .contact-grid { grid-template-columns: 1fr; }
@@ -518,13 +518,143 @@ body {
     .nav-list { flex-direction: column; align-items: center; gap: 2.5rem; }
     .nav-link { color: var(--white); font-size: 1.2rem; }
     
-    /* FIX: Sorgt dafür, dass die "X"-Schliessen-Linien im geöffneten Menü IMMER weiss und sichtbar sind */
-    .mobile-toggle.active .bar { background-color: var(--white) !important; }
-    
     .mobile-toggle.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .mobile-toggle.active .bar:nth-child(2) { opacity: 0; }
     .mobile-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
-    /* FIX: Fehlerhafte Farberzwingung entfernt. Logo verhält sich nun wie am Desktop (weiss im Header, grün nach Scrollen) */
+    .brand-logo span { color: var(--text-dark); }
     .site-header.scrolled .mobile-toggle:not(.active) .bar { background-color: var(--text-dark); }
+}
+
+/* =========================================
+   MOBILE OPTIMIERUNG
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .page-section {
+        padding: 5rem 1.2rem;
+    }
+
+    .nav-container {
+        padding: 0 1rem;
+    }
+
+    .hero-section {
+        background-attachment: scroll;
+    }
+
+    .hero-content {
+        padding: 0 1.2rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.3rem;
+        line-height: 1.15;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .primary-btn,
+    .download-btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .bento-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .bento-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .timeline-container {
+        padding-left: 1.8rem;
+    }
+
+    .timeline-dot {
+        left: -1.8rem;
+    }
+
+    .timeline-content {
+        padding: 1.5rem;
+    }
+
+    .philosophy-box {
+        padding: 2rem 1.5rem;
+    }
+
+    .contact-info-card,
+    .profile-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .footer-brand h3 {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .site-header {
+        padding: 1rem 0;
+    }
+
+    .brand-logo {
+        font-size: 1rem;
+    }
+
+    .brand-logo img {
+        height: 34px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.9rem;
+    }
+
+    .hero-tagline {
+        font-size: 0.75rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.7rem;
+    }
+
+    .bento-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .timeline-year {
+        font-size: 1.1rem;
+    }
+
+    .contact-list li {
+        font-size: 0.95rem;
+    }
+
+    .profile-avatar {
+        width: 64px;
+        height: 64px;
+        font-size: 1.2rem;
+    }
+
+    .main-nav {
+        width: 100%;
+    }
 }

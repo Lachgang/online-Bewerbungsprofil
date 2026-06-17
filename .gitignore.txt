@@ -1,0 +1,14 @@
+# Caches und temporäre Dateien von Editoren/Tools
+.equo/
+.lesshst
+.gitconfig
+
+# Paketmanager und externe Bibliotheken (riesig!)
+.nuget/
+packages/
+bin/
+obj/
+
+# Windows-Systemdateien
+Thumbs.db
+Desktop.ini
